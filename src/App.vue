@@ -1,136 +1,206 @@
 <template>
   <div id="app">
     <section>
-      <photo></photo>
-      <name></name>
-      <profile></profile>
-      <contact></contact>
-      <reference></reference>
+      <photo :info="parsedobj"></photo>
+      <profile :info="parsedobj"></profile>
+      <contact :info="parsedobj"></contact>
     </section>
     <section>
-      <experience :experienceList="experienceList"></experience>
-      <skills :skills="skills"></skills>
-      <education :education="education"></education>
+      <toggle @changeLanguage="changeLanguage"></toggle>
+      <experience :info="parsedobj"></experience>
+      <skills :info="parsedobj"></skills>
+      <education :info="parsedobj"></education>
     </section>
   </div>
 </template>
 
 <script>
-import photo from "./components/photo.vue";
-import name from "./components/name.vue";
-import profile from "./components/profile.vue";
-import contact from "./components/contact.vue";
-import reference from "./components/reference.vue";
-import experience from "./components/experience.vue";
-import skills from "./components/skills.vue";
-import education from "./components/education.vue";
+import photo from "./components/Photo";
+import profile from "./components/Profile";
+import experience from "./components/Experience";
+import skills from "./components/Skills";
+import education from "./components/Education";
+import toggle from "./components/Toggle";
+import contact from "./components/Contact";
 
 export default {
   name: "app",
-  components: {
-    photo,
-    name,
-    profile,
-    contact,
-    reference,
-    experience,
-    skills,
-    education,
+  methods: {
+    changeLanguage(value) {
+      this.parsedobj = JSON.parse(JSON.stringify(value));
+    },
   },
   data() {
     return {
-      experienceList: [
-        {
-          name: "experience number one",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus illo nesciunt odio nisi porro commodi cumque natus, deleniti, voluptate modi quos, iusto cum molestias a repudiandae ipsa esse? Odio, tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, sint vel omnis quia officiis numquam similique dolores. Molestias odit voluptatibus libero molestiae ipsum laboriosam. Eius minus nostrum sapiente maiores culpa.",
-          date: "2018-2019",
-        },
-        {
-          name: "experience number two",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus illo nesciunt odio nisi porro commodi cumque natus, deleniti, voluptate modi quos, iusto cum molestias a repudiandae ipsa esse? Odio, tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, sint vel omnis quia officiis numquam similique dolores. Molestias odit voluptatibus libero molestiae ipsum laboriosam. Eius minus nostrum sapiente maiores culpa.",
-          date: "2018-2019",
-        },
-        {
-          name: "experience number three",
-          description:
-            "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus illo nesciunt odio nisi porro commodi cumque natus, deleniti, voluptate modi quos, iusto cum molestias a repudiandae ipsa esse? Odio, tempora! Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus, sint vel omnis quia officiis numquam similique dolores. Molestias odit voluptatibus libero molestiae ipsum laboriosam. Eius minus nostrum sapiente maiores culpa.",
-          date: "2018-2019",
-        },
-      ],
-      skills: [
-        { name: "js", style: "skill_60" },
-        { name: "vue", style: "skill_20" },
-        { name: "css", style: "skill_80" },
-        { name: "bootstrap", style: "skill_60" },
-        { name: "html", style: "skill_80" },
-      ],
-      education: [
-        {
-          name: "maou sosh number 9 / ulan-ude, resp. buryatia",
-          description:
-            "I have finished 11 classes. bla-bla-bla  Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde voluptatum doloremque vel nihil voluptatem ad at saepe architecto culpa expedita aliquam quam ut aut, quidem recusandae, veniam illum ullam repellat?  Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde voluptatum doloremque vel nihil voluptatem ad at saepe architecto culpa expedita aliquam quam ut aut, quidem recusandae, veniam illum ullam repellat?",
-          date: "2007-2019",
-        },
-        {
-          name: "maou sosh number 9 / ulan-ude, resp. buryatia",
-          description:
-            "I have finished 11 classes. bla-bla-bla  Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde voluptatum doloremque vel nihil voluptatem ad at saepe architecto culpa expedita aliquam quam ut aut, quidem recusandae, veniam illum ullam repellat?  Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde voluptatum doloremque vel nihil voluptatem ad at saepe architecto culpa expedita aliquam quam ut aut, quidem recusandae, veniam illum ullam repellat?",
-          date: "2007-2019",
-        },
-      ],
+      parsedobj: {},
     };
+  },
+  components: {
+    photo,
+    profile,
+    contact,
+    experience,
+    skills,
+    education,
+    toggle,
   },
 };
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@400;600&display=swap');
+
 body {
-  background: #444C5C;
+  background: #fff;
+  /* background: url('./assets/bg1.jpg'); */
+  color: rgb(245, 245, 245);
+  font-family: 'Jura', sans-serif;
+  font-size: 28px;
+  margin: 10px;
 }
 
 #app {
-  margin: 0px auto;
-  font-family: "Crimson Text", serif;
+  position: relative;
   display: flex;
   flex-wrap: wrap;
-  max-width: 1370px;
+  margin: 0px auto;
+  max-width: 1290px;
 }
 
 #app > section:first-child {
-  border-right: 30px solid #444C5C;
+  margin-right: 10px;
+  max-width: 35%;
+  text-align: center;
 }
 
-.name_blocks-left {
+#app > section:last-child {
+   max-width: 64%;
+}
+
+ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+li {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.name_blocks-left, .name_blocks-right {
   padding: 5px 0px;
-  padding-left: 60px;
-  font-size: 2em;
-  text-transform: uppercase;
-  background: #e1b16a;
-}
-
-.content_blocks-left {
-  padding: 60px;
+  text-align: center;
   font-size: 1.2em;
-  background: #78a5a3;
+  text-transform: uppercase;
+  background: #019b8b;
 }
 
-.name_blocks-right {
+.content_blocks-left, .content_blocks-right {
+  padding: 30px;
+  background: #77A6F7;
+}
+
+.itemName {
+  position: relative;
+  margin-left: 20px;
+  flex-grow: 1;
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+.itemName::before {
   position: absolute;
-  left: 40px;
-  top: 40px;
-  background: #444C5C;
-  color: #ffffff;
-  padding: 5px 220px 5px 40px;
-  font-size: 2em;
-  text-transform: uppercase;
+  top: -6px;
+  left: -20px;
+  content: "\2022";
+  font-size: 1.2em;
 }
 
-.content_blocks-right {
-  padding: 40px;
-  padding-top: 120px;
-  font-size: 1.2em;
-  background: #78a5a3;
+.itemDate {
+  font-size: 1em;
+}
+
+.itemDescription {
+  margin-top: 5px;
+  font-size: 1em;
+  flex-basis: 100%;
+  padding: 20px;
+  box-shadow: 2px 2px 2px 3px #7aa8f8,
+              -2px -2px 2px 3px #7aa8f8;
+  margin-top: 30px;
 }
 </style>
+
+
+<style>
+  @media all and (min-width: 1280px) and (max-width: 1439px) {
+    #app {
+      max-width: 1150px;
+    }
+  }
+</style>
+
+<style>
+  @media all and (min-width: 1024px) and (max-width: 1279px) {
+    body {
+      font-size: 20px;
+    }
+
+    #app {
+      max-width: 920px;
+    }
+
+    #app > section:first-child {
+      max-width: 35%;
+    }
+
+    #app > section:last-child {
+      max-width: 63.91%;
+    }
+  }
+</style>
+
+<style>
+  @media all and (min-width: 768px) and (max-width: 1023px) {
+    body {
+      font-size: 23px;
+    }
+
+    #app {
+      max-width: 690px;
+    }
+
+    #app > section:first-child {
+      margin-right: 0px;
+      min-width: 690px;
+    }
+
+    #app > section:last-child {
+      margin-top: 10px;
+      min-width: 690px;
+    }
+  }
+</style>
+
+<style>
+  @media all and (min-width: 0px) and (max-width: 767px) {
+    body {
+      font-size: 16px;
+    }
+
+    #app {
+      max-width: 285px;
+    }
+
+    #app > section:first-child {
+      margin-right: 0px;
+      min-width: 285px;
+    }
+
+    #app > section:last-child {
+      margin-top: 10px;
+      min-width: 285px;
+    }
+  }
+</style>
+
